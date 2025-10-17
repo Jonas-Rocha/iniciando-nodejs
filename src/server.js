@@ -1,6 +1,1 @@
-const a = 10
-const b = 20
-const result = a + b
-console.log(result)
-
-console.log("Hello world!")
+import http from "node:http"
