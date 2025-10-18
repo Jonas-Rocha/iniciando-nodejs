@@ -1,6 +1,7 @@
 import http from "node:http";
+import { buffer } from "node:stream/consumers";
 
-const server = http.createServer((request, response) => {
+const server = http.createServer( async (request, response) => {
   const { method, url } = request;
 
   if (method === "GET" && url === "/products") {
@@ -8,6 +9,15 @@ const server = http.createServer((request, response) => {
   }
 
   if (method === "POST" && url === "/products") {
+    const buffers = []
+
+    for await (const chunk of request) {
+      buffers.push(chunk)
+    }
+
+
+    console.log(Buffer.concat(buffers).toString())
+
     return response.end("Produto cadastrado!");
   }
 
