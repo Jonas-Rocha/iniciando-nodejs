@@ -1,17 +1,19 @@
 import { routes } from "../routes.js";
+import { extractQueryParams } from "../utils/extract-query-params.js";
 
 export function routeHandler(request, response) {
-  console.log(request.url);
   const route = routes.find((route) => {
     return route.method === request.method && route.path.test(request.url);
   });
 
   if (route) {
     const routeParams = request.url.match(route.path);
-    console.log(routeParams);
-    const { ...params } = routeParams.groups;
+    const { query, ...params } = routeParams.groups;
+
+    extractQueryParams(query);
 
     request.params = params;
+    request.query = query ? extractQueryParams(query) : {};
 
     return route.controller(request, response);
   }
