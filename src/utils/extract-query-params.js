@@ -1,12 +1,14 @@
 export function extractQueryParams(query) {
-  return query
-    .slice(1)
-    .split("&")
-    .reduce((queryParams, param) => {
-      const [key, value] = param.split("=");
+  console.log(
+    query
+      .slice(1)
+      .split("&")
+      .reduce((queryParams, param) => {
+        const [key, value] = param.split("=");
 
-      queryParams[key] = value;
+        queryParams[key] = value;
 
-      return queryParams;
-    }, {});
+        return queryParams;
+      }, {}),
+  );
 }
