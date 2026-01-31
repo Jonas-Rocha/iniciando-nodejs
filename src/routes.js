@@ -6,7 +6,6 @@ export const routes = [
     path: "/products",
     controller: ({ request, response, database }) => {
       const products = database.select("products");
-
       return response.end(JSON.stringify(products));
     },
   },
