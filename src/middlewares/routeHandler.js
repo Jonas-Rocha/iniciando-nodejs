@@ -3,6 +3,7 @@ import { extractQueryParams } from "../utils/extract-query-params.js";
 import { Database } from "../database.js";
 
 const database = new Database();
+//database.  << ocultamos o metodo persist e o banco de dados usando #
 
 export function routeHandler(request, response) {
   const route = routes.find((route) => {

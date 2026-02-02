@@ -3,11 +3,11 @@ const DATABASE_PATH = new URL("db.json", import.meta.url);
 // console.log(import.meta.url); <<< me mostra o caminho atual do arquivo
 
 export class Database {
-  database = {};
+  #database = {};
 
   constructor() {
     fs.readFile(DATABASE_PATH, "utf8").then((data) => {
-      this.database = JSON.parse(data)
+      this.#database = JSON.parse(data)
     }).catch(() => {
       this.persist();
     })
@@ -15,20 +15,20 @@ export class Database {
   }
 
   persist() {
-    fs.writeFile(DATABASE_PATH, JSON.stringify(this.database));
+    fs.writeFile(DATABASE_PATH, JSON.stringify(this.#database));
   }
 
   insert(table, data) {
-    if (Array.isArray(this.database[table])) {
-      this.database[table].push(data);
+    if (Array.isArray(this.#database[table])) {
+      this.#database[table].push(data);
     } else {
-      this.database[table] = [data];
+      this.#database[table] = [data];
     }
 
     this.persist();
   }
 
   select(table) {
-    return this.database[table];
+    return this.#database[table] ?? [];
   }
 }
